@@ -13,12 +13,14 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 app = FastAPI()
 
+# CORS: Use wildcard origins without credentials to avoid browser rejection
+# (Browsers block "*" with credentials=true). If you need cookies later, set a specific origin list and enable credentials.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
 
 class SignupRequest(BaseModel):
